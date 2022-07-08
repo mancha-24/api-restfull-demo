@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace apirestfull_core_demo.Controllers;
+namespace SocialMedia.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]

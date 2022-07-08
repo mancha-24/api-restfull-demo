@@ -1,4 +1,4 @@
-namespace apirestfull_core_demo;
+namespace SocialMedia.Api;
 
 public class WeatherForecast
 {
