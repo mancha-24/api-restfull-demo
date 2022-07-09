@@ -23,9 +23,16 @@ namespace SocialMediaApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetPots()
+        public async Task<IActionResult> GetPosts()
         {
-            var post = await _postRepository.GetPosts();
+            var posts = await _postRepository.GetPosts();
+            return Ok(posts);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetPost(int id)
+        {
+            var post = await _postRepository.GetPost(id);
             return Ok(post);
         }
 
