@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/SocialMedia.Api/bin/Debug/net6.0/apirestfull-core-demo.dll",
+            "program": "${workspaceFolder}/SocialMedia.Api/bin/Debug/net6.0/SocialMediaApi.dll",
             "args": [],
             "cwd": "${workspaceFolder}/SocialMedia.Api",
             "stopAtEntry": false,
