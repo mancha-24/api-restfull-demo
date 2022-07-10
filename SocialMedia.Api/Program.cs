@@ -1,4 +1,5 @@
 using System.Text;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -54,8 +55,13 @@ builder.Services
             };
         });
 
-builder.Services.AddMvc(options => {
+builder.Services.AddMvc(options => 
+{
     options.Filters.Add<ValidationFilter>();
+})
+.AddFluentValidation(option => 
+{
+    option.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 });
 
 var app = builder.Build();
