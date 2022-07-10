@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SocialMedia.Core.Interfaces;
+using SocialMedia.Core.Services;
 using SocialMedia.Infrastructure.Data;
 using SocialMedia.Infrastructure.Filters;
 using SocialMedia.Infrastructure.Repositories;
@@ -31,7 +32,9 @@ builder.Services.AddDbContext<SocialMediaContext>( options =>
 options.UseSqlServer(configuration.GetConnectionString("SocialMedia"))
 );
 
+builder.Services.AddTransient<IPostService, PostService>();
 builder.Services.AddTransient<IPostRepository, PostRepository>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
 
 builder.Services
     .AddAuthentication(

@@ -2,10 +2,7 @@
 {
     public partial class Post
     {
-        public Post()
-        {
-            Comments = new HashSet<Comment>();
-        }
+        public Post() => Comments = new HashSet<Comment>();
 
         public int PostId { get; set; }
         public int UserId { get; set; }
