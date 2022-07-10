@@ -22,7 +22,7 @@ namespace SocialMedia.Infrastructure.Repositories
 
         public async Task<Post> GetPost(int id)
         {
-            var post = await _context.Posts.FirstOrDefaultAsync(c => c.PostId == id);
+            var post = await _context.Posts.FirstOrDefaultAsync(c => c.Id == id);
             return post;
         }
 
@@ -35,7 +35,7 @@ namespace SocialMedia.Infrastructure.Repositories
 
         public async Task<bool> UpdatePost(Post post)
         {
-            var currentPost = await GetPost(post.PostId);
+            var currentPost = await GetPost(post.Id);
             currentPost.Date = post.Date;
             currentPost.Description = post.Description;
             currentPost.Image = post.Image;
