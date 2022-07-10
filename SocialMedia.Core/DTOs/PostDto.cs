@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+using System.ComponentModel.DataAnnotations;
 namespace SocialMedia.Core.DTOs
 {
     public class PostDto
@@ -10,6 +6,7 @@ namespace SocialMedia.Core.DTOs
         public int PostId { get; set; }
         public int UserId { get; set; }
         public DateTime Date { get; set; }
+        [Required]
         public string Description { get; set; } = null!;
         public string? Image { get; set; }
     }
