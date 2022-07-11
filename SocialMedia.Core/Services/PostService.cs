@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Options;
 using SocialMedia.Core.CustomEntities;
 using SocialMedia.Core.Entities;
 using SocialMedia.Core.Exceptions;
@@ -15,9 +16,11 @@ namespace SocialMedia.Core.Services
         private readonly IRepository<User> _userRepository;*/
 
         private readonly IUnitOfWork _unitOfWork;
-        public PostService(IUnitOfWork unitOfWork)
+        private readonly PaginationOptions _paginationOptions;
+        public PostService(IUnitOfWork unitOfWork, IOptions<PaginationOptions> options)
         {
             _unitOfWork = unitOfWork;
+            _paginationOptions = options.Value;
         }
 
         public async Task<Post> GetPost(int id)
@@ -27,6 +30,9 @@ namespace SocialMedia.Core.Services
 
         public PagedList<Post> GetPosts(PostQueryFilter filters)
         {
+            filters.PageNumber = filters.PageNumber == 0 ? _paginationOptions.DefaultPageNumber : filters.PageNumber;
+            filters.PageSize = filters.PageSize == 0 ? _paginationOptions.DefaultPageSize : filters.PageSize;
+
             var posts = _unitOfWork.PostRepository.GetAll();
 
             if(filters.UserId != null)
