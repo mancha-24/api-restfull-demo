@@ -1,6 +1,7 @@
 using System.Net;
 using System.Text.Json;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SocialMedia.Core.CustomEntities;
 using SocialMedia.Core.DTOs;
@@ -12,6 +13,7 @@ using SocialMediaApi.Responses;
 
 namespace SocialMediaApi.Controllers
 {
+    [Authorize]
     [Produces("application/json")]
     [ApiController]
     [Route("api/[controller]")]
