@@ -12,6 +12,7 @@ using SocialMediaApi.Responses;
 
 namespace SocialMediaApi.Controllers
 {
+    [Produces("application/json")]
     [ApiController]
     [Route("api/[controller]")]
     public class PostController : ControllerBase
@@ -32,6 +33,11 @@ namespace SocialMediaApi.Controllers
             _uriService = uriService;
         }
 
+        ///<summary>
+        /// Retrieve all post
+        ///</summary>
+        ///<param name="filters">Filters to apply</param>
+        ///<returns></returns>
         [HttpGet(Name = nameof(GetPosts))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<IEnumerable<PostDto>>))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ApiResponse<IEnumerable<PostDto>>))]
