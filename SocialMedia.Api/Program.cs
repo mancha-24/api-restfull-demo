@@ -9,8 +9,10 @@ using SocialMedia.Core.CustomEntities;
 using SocialMedia.Core.Interfaces;
 using SocialMedia.Core.Services;
 using SocialMedia.Infrastructure.Data;
+using SocialMedia.Infrastructure.Extensions;
 using SocialMedia.Infrastructure.Filters;
 using SocialMedia.Infrastructure.Interfaces;
+using SocialMedia.Infrastructure.Options;
 using SocialMedia.Infrastructure.Repositories;
 using SocialMedia.Infrastructure.Services;
 
@@ -36,34 +38,14 @@ builder.Services.AddControllers(options =>
             }
             );
 
-builder.Services.Configure<PaginationOptions>(configuration.GetSection("Pagination"));
-
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(doc =>
-{
-    doc.SwaggerDoc("v1", new OpenApiInfo {Title = "Social Media API", Version ="v1"});
-    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    doc.IncludeXmlComments(xmlPath);
-});
 
-builder.Services.AddDbContext<SocialMediaContext>( options =>
-options.UseSqlServer(configuration.GetConnectionString("SocialMedia"))
-);
-
-builder.Services.AddTransient<IPostService, PostService>();
-/*builder.Services.AddTransient<IPostRepository, PostRepository>();
-builder.Services.AddTransient<IUserRepository, UserRepository>();*/
-builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
-builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
-builder.Services.AddSingleton<IUriService>(provider => 
-{
-    var accesor = provider.GetRequiredService<IHttpContextAccessor>();
-    var request = accesor.HttpContext.Request;
-    var absoluteUri = string.Concat(request.Scheme, "://", request.Host.ToUriComponent());
-    return new UriService(absoluteUri);
-});
+//Extension methods
+builder.Services.AddOptions(configuration)
+                .AddDbContexts(configuration)
+                .AddServices()
+                .AddSwagger($"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
 
 builder.Services
     .AddAuthentication(
