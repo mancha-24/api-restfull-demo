@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text.Json;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -37,10 +38,20 @@ namespace SocialMediaApi.Controllers
         public IActionResult GetPosts([FromQuery]PostQueryFilter filters)
         {
             var posts = _postService.GetPosts(filters);
-
             var postDtos = _mapper.Map<IEnumerable<PostDto>>(posts);
-
             var response = new ApiResponse<IEnumerable<PostDto>>(postDtos);
+
+            var metadata = new
+            {
+                posts.TotalCount,
+                posts.PageSize,
+                posts.CurrentPage,
+                posts.TotalPages,
+                posts.HasNextPage,
+                posts.HasPreviousPage
+            };
+
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metadata));
 
             return Ok(response);
         }
