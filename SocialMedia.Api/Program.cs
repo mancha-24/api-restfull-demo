@@ -18,7 +18,10 @@ ConfigurationManager configuration = builder.Configuration; // allows both to ac
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddControllers()
+builder.Services.AddControllers(options =>   
+            {
+                options.Filters.Add<GlobalExceptionFilter>();
+            })
             .ConfigureApiBehaviorOptions(options => 
             {
                 options.SuppressModelStateInvalidFilter = true;
