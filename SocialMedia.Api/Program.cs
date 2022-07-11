@@ -2,20 +2,9 @@ using System.Reflection;
 using System.Text;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using SocialMedia.Core.CustomEntities;
-using SocialMedia.Core.Interfaces;
-using SocialMedia.Core.Services;
-using SocialMedia.Infrastructure.Data;
 using SocialMedia.Infrastructure.Extensions;
 using SocialMedia.Infrastructure.Filters;
-using SocialMedia.Infrastructure.Interfaces;
-using SocialMedia.Infrastructure.Options;
-using SocialMedia.Infrastructure.Repositories;
-using SocialMedia.Infrastructure.Services;
-
 var builder = WebApplication.CreateBuilder(args);
 
 ConfigurationManager configuration = builder.Configuration; // allows both to access and to set up the config
