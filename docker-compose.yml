@@ -1,0 +1,13 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
+
+version: '3.4'
+
+services:
+  socialmediaapi:
+    image: socialmediaapi
+    build:
+      context: .
+      dockerfile: SocialMedia.Api/Dockerfile
+    ports:
+      - 5110:5110
+    
