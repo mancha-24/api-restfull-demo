@@ -10,8 +10,9 @@ namespace SocialMedia.Infrastructure.Data.Configurations
         {
             builder.ToTable("Seguridad");
                  builder.HasKey(e => e.Id);
+                
                 builder.Property(e => e.Id)
-                .HasColumnName("IdPublicacion");
+                .HasColumnName("IdSeguridad");
 
 
                 builder.Property(e => e.User)
@@ -33,10 +34,13 @@ namespace SocialMedia.Infrastructure.Data.Configurations
                 .IsUnicode(false);
 
                 builder.Property(e => e.Role)
-                .IsRequired()
                 .HasColumnName("Rol")
+                .IsRequired()
                 .HasMaxLength(15)
-                .HasConversion(x => x.ToString(), x => (RoleType)Enum.Parse(typeof(RoleType), x));
+                .HasConversion(
+                x => x.ToString(), 
+                x => (RoleType)Enum.Parse(typeof(RoleType), x)
+                );
 
         }
     }

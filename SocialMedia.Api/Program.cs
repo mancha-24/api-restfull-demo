@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Text;
+using System.Text.Json.Serialization;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -19,7 +20,9 @@ builder.Services.AddControllers(options =>
                 options.Filters.Add<GlobalExceptionFilter>();
             })
             .AddJsonOptions(options => {
-                options.JsonSerializerOptions.IgnoreNullValues = true;
+                //options.JsonSerializerOptions.IgnoreNullValues = true;
+                options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             })
             .ConfigureApiBehaviorOptions(options => 
             {
@@ -27,14 +30,13 @@ builder.Services.AddControllers(options =>
             }
             );
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
 //Extension methods
 builder.Services.AddOptions(configuration)
                 .AddDbContexts(configuration)
                 .AddServices()
-                .AddSwagger($"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
+                .AddSwagger($"{Assembly.GetExecutingAssembly().GetName().Name}.xml"); // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 builder.Services
     .AddAuthentication(
